@@ -168,8 +168,6 @@ def main():
         apple.draw()
         pygame.display.update()
 
-        clock.tick(SPEED)
-
 
 if __name__ == '__main__':
     main()

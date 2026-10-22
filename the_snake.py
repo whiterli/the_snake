@@ -152,7 +152,6 @@ def main():
     """Основной игровой цикл"""
     snake = Snake()
     apple = Apple(snake.positions)
-    clock = pygame.time.Clock()
 
     while True:
         handle_keys(snake)
@@ -167,6 +166,8 @@ def main():
         snake.draw()
         apple.draw()
         pygame.display.update()
+
+        clock.tick(SPEED)
 
 
 if __name__ == '__main__':

@@ -52,7 +52,7 @@ class GameObject:
 
     def draw(self):
         """Отрисовывает объект (переопределяется в подклассах)"""
-        raise NotImplementedError("Метод draw() должен быть реализован в подклассе.")
+        raise NotImplementedError("Метод draw() не реализован")
 
 
 class Apple(GameObject):
@@ -83,7 +83,7 @@ class Snake(GameObject):
     """Змейка, управляемая игроком."""
 
     def __init__(self):
-        """Инициализирует змейку с начальной позицией и направлением движения"""
+        """Инициализирует змейку с начальной позицией"""
         super().__init__()
         self.body_color = SNAKE_COLOR
         self.reset()

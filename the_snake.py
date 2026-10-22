@@ -59,7 +59,7 @@ class Apple(GameObject):
     """Яблоко, которое ест змейка"""
 
     def __init__(self, occupied_positions=()):
-        """Инициализирует яблоко с случайной позицией, не занятой змейкой"""
+        """Инициализирует яблоко с случайной позицией."""
         super().__init__()
         self.body_color = APPLE_COLOR
         self.randomize_position(occupied_positions)
@@ -101,7 +101,7 @@ class Snake(GameObject):
         return self.positions[0]
 
     def update_direction(self):
-        """Обновляет направление движения змейки, если было введено новое направление"""
+        """Обновляет направление движения змейки"""
         if self.next_direction:
             self.direction = self.next_direction
             self.next_direction = None
@@ -110,8 +110,9 @@ class Snake(GameObject):
         """Перемещает змейку в текущем направлении и проверяет столкновения"""
         head_x, head_y = self.get_head_position()
         dir_x, dir_y = self.direction
-        new_head_position = ((head_x + dir_x * GRID_SIZE) % SCREEN_WIDTH,
-                             (head_y + dir_y * GRID_SIZE) % SCREEN_HEIGHT)
+        new_head_position = (
+            (head_x + dir_x * GRID_SIZE) % SCREEN_WIDTH,
+            (head_y + dir_y * GRID_SIZE) % SCREEN_HEIGHT)
 
         if new_head_position in self.positions:
             self.reset()

@@ -133,3 +133,21 @@ dmypy.json
 .deployment
 
 .idea
+
+# Виртуальное окружение
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Настройки редакторов
+.vscode/
+
+# Временные файлы
+*.log
+
+ignore = E501
+
+max-line-length = 88

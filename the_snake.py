@@ -65,7 +65,7 @@ class Apple(GameObject):
         self.randomize_position(occupied_positions)
 
     def randomize_position(self, occupied_positions=()):
-        """Случайным образом выбирает позицию для яблока, не занятую змейкой"""
+        """Выбирает свободную случайную позицию для яблока."""
         while True:
             self.position = (
                 randint(0, GRID_WIDTH - 1) * GRID_SIZE,
@@ -112,7 +112,8 @@ class Snake(GameObject):
         dir_x, dir_y = self.direction
         new_head_position = (
             (head_x + dir_x * GRID_SIZE) % SCREEN_WIDTH,
-            (head_y + dir_y * GRID_SIZE) % SCREEN_HEIGHT)
+            (head_y + dir_y * GRID_SIZE) % SCREEN_HEIGHT
+        )
 
         if new_head_position in self.positions:
             self.reset()
@@ -130,7 +131,7 @@ class Snake(GameObject):
 
 
 def handle_keys(game_object):
-    """Обрабатывает события клавиатуры для управления направлением змейки"""
+    """Обрабатывает клавиши управления направлением змейки."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()

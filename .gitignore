@@ -132,8 +132,6 @@ dmypy.json
 
 .deployment
 
-.idea
-
 # Виртуальное окружение
 venv/
 .venv/

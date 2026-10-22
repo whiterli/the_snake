@@ -1,4 +1,3 @@
-#не обращай внимания
 from random import choice, randint
 
 import pygame

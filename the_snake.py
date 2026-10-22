@@ -8,6 +8,7 @@ GRID_SIZE = 20
 GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
 GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
 
+pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 pygame.display.set_caption('Змейка')
 clock = pygame.time.Clock()
@@ -149,7 +150,6 @@ def handle_keys(game_object):
 
 def main():
     """Основной игровой цикл"""
-    pygame.init()
     snake = Snake()
     apple = Apple(snake.positions)
     clock = pygame.time.Clock()

@@ -7,9 +7,12 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
 GRID_SIZE = 20
 GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
 GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
+SCORE_BAR_HEIGHT = 32
 
 pygame.init()
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
+screen = pygame.display.set_mode(
+    (SCREEN_WIDTH, SCREEN_HEIGHT + SCORE_BAR_HEIGHT), 0, 32
+)
 pygame.display.set_caption('Змейка')
 clock = pygame.time.Clock()
 
@@ -95,6 +98,7 @@ class Snake(GameObject):
         self.direction = choice([UP, DOWN, LEFT, RIGHT])
         self.next_direction = None
         self.grow = False
+        self.score = 0
         screen.fill(BOARD_BACKGROUND_COLOR)
 
     def get_head_position(self):
@@ -108,7 +112,7 @@ class Snake(GameObject):
             self.next_direction = None
 
     def move(self):
-        """Перемещает змейку в текущем направлении и проверяет столкновения"""
+        """Перемещает змейку и возвращает False при столкновении с собой."""
         head_x, head_y = self.get_head_position()
         dir_x, dir_y = self.direction
         new_head_position = (
@@ -118,12 +122,14 @@ class Snake(GameObject):
 
         if new_head_position in self.positions:
             self.reset()
+            return False
+
+        self.positions.insert(0, new_head_position)
+        if self.grow:
+            self.grow = False
         else:
-            self.positions.insert(0, new_head_position)
-            if not self.grow:
-                self.positions.pop()
-            else:
-                self.grow = False
+            self.positions.pop()
+        return True
 
     def draw(self):
         """Отрисовывает змейку на экране"""
@@ -152,19 +158,26 @@ def main():
     """Основной игровой цикл"""
     snake = Snake()
     apple = Apple(snake.positions)
+    score_font = pygame.font.Font(None, 24)
+    score_bar = pygame.Rect(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCORE_BAR_HEIGHT)
 
     while True:
         handle_keys(snake)
         snake.update_direction()
-        snake.move()
+        moved = snake.move()
 
         if snake.get_head_position() == apple.position:
-            snake.grow = True
+            if moved:
+                snake.grow = True
+                snake.score += 1
             apple.randomize_position(snake.positions)
 
         screen.fill(BOARD_BACKGROUND_COLOR)
         snake.draw()
         apple.draw()
+        screen.fill((28, 28, 28), score_bar)
+        score_label = score_font.render(f'Счёт: {snake.score}', True, (255, 255, 255))
+        screen.blit(score_label, score_label.get_rect(midleft=(10, score_bar.centery)))
         pygame.display.update()
 
         clock.tick(SPEED)
